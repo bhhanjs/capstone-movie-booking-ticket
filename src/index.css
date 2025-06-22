@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -118,4 +118,34 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@theme {
+  --color-yama-main-bg: #f2eee3;
+  --color-yama-sub-bg: #e6e4d9;
+  --color-yama-light-gray: #9ea09f;
+  --color-yama-dark-gray: #353535;
+  --color-yama-black: #141414;
+  --color-yama-white: #ffffff;
+  --color-yama-main-green: #007737;
+  --color-yama-dark-green: #09411a;
+  --color-yama-blue: #235bad;
+  --color-yama-red: #e50020;
+
+  --font-doto: Doto;
+}
+
+@theme {
+  --color-yama-main-bg: #f2eee3;
+  --color-yama-sub-bg: #e6e4d9;
+  --color-yama-light-gray: #9ea09f;
+  --color-yama-dark-gray: #353535;
+  --color-yama-black: #141414;
+  --color-yama-white: #ffffff;
+  --color-yama-main-green: #007737;
+  --color-yama-dark-green: #09411a;
+  --color-yama-blue: #235bad;
+  --color-yama-red: #e50020;
+
+  --font-noto-sans: Noto Sans;
 }

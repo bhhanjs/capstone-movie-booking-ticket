@@ -29,19 +29,15 @@ const useRoutesElements = () => {
       ],
     },
     {
-      path: PATH.AUTH,
+      // path: "",
       element: <AuthLayout></AuthLayout>,
       children: [
         {
-          index: true,
-          element: <Navigate to={PATH.LOGIN_RELATIVE} replace />,
-        },
-        {
-          path: PATH.LOGIN_RELATIVE,
+          path: PATH.LOGIN,
           element: <LoginPage />,
         },
         {
-          path: PATH.REGISTER_RELATIVE,
+          path: PATH.REGISTER,
           element: <RegisterPage />,
         },
       ],
