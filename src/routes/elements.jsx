@@ -22,11 +22,11 @@ const useRoutesElements = () => {
           path: PATH.MOVIE_DETAILS,
           element: <MovieDetails />,
         },
-        {
-          path: PATH.TICKETS_ROOM,
-          element: <TicketPage />,
-        },
       ],
+    },
+    {
+      path: PATH.TICKETS_ROOM,
+      element: <TicketPage />,
     },
     {
       // path: "",
