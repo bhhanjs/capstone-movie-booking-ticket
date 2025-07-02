@@ -10,24 +10,66 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useForm, Controller } from "react-hook-form";
+import schema from "./chema-register";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
+import registerAPI from "@/apis/apiCalls/register";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RegisterPage() {
-  const { handleSubmit, control } = useForm({
+  // React hook form + yup
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
+      matKhau_confirm: "",
       email: "",
       soDt: "",
       maNhom: "",
       hoTen: "",
+      checkbox: false,
     },
+    resolver: yupResolver(schema),
     mode: "onChange",
+  });
+
+  // tanstack query
+  const registerMutation = useMutation({
+    mutationFn: (data) => {
+      return registerAPI(data);
+    },
   });
 
   const onSubmit = function (formData) {
     console.log(formData);
+    const data = {
+      taiKhoan: formData.taiKhoan,
+      matKhau: formData.matKhau,
+      email: formData.email,
+      soDt: formData.soDt,
+      maNhom: formData.maNhom,
+      hoTen: formData.hoTen,
+    };
+
+    console.log(data);
+    registerMutation.mutate(data, {
+      onSuccess() {
+        console.log("tanstack register: success");
+      },
+      onError() {
+        console.log("tanstack register: error");
+      },
+    });
+
+    reset();
   };
 
+  // UI JSX
   return (
     <main>
       <div className="register__container section__container">
@@ -64,7 +106,7 @@ export default function RegisterPage() {
                   All fields are required to complete registration
                 </p>
               </div>
-              <div className="register__contact__infor__content grid grid-cols-1 md:grid-cols-2 gap-6 ">
+              <div className="register__contact__infor__content grid grid-cols-1 md:grid-cols-2 gap-7 ">
                 <div className="form__group">
                   <Label htmlFor="hoTen">Name</Label>
                   <Controller
@@ -136,7 +178,10 @@ export default function RegisterPage() {
                     control={control}
                     name="maNhom"
                     render={({ field }) => (
-                      <Select value={field.value} onChange={field.onChange}>
+                      <Select
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
+                      >
                         <SelectTrigger className="input w-sm">
                           <SelectValue placeholder="Prefered theater" />
                         </SelectTrigger>
@@ -146,6 +191,15 @@ export default function RegisterPage() {
                       </Select>
                     )}
                   />
+                  <div>
+                    {errors.maNhom ? (
+                      <p className="text-red-500 text-sm absolute">
+                        {errors.maNhom.message}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -196,16 +250,21 @@ export default function RegisterPage() {
               <Controller
                 control={control}
                 name="checkbox"
-                render={({ field, formState: { errors } }) => (
+                defaultValue={false} // 👈 Ensure it's controlled
+                render={({ field }) => (
                   <CheckboxCustom
-                    value={field.value}
+                    checked={field.value} // 👈 controlled boolean
                     onCheckedChange={field.onChange}
                   />
                 )}
               />
+
               <Label htmlFor="checkbox">
                 I agree to the Terms and conditions of the Rewards program
               </Label>
+              <span className="text-red-500 text-sm absolute">
+                {errors.checkbox ? `${errors.checkbox.message}` : ""}
+              </span>
             </div>
             {/* button */}
             <div className="register__button flex justify-center items-center ">
