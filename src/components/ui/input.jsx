@@ -18,13 +18,13 @@ function Input({ className, type, ...props }) {
   );
 }
 
-
 // custom to add error prop
-function InputCustom({ className, type, error, ...props }) {
+function InputCustom({ className, type, error, value, ...props }) {
   return (
     <div className="relative w-full">
       <input
         type={type}
+        value={value ?? ""}
         data-slot="input"
         aria-invalid={!!error}
         className={cn(
@@ -35,9 +35,18 @@ function InputCustom({ className, type, error, ...props }) {
         )}
         {...props}
       />
-      {error && <p className="text-red-500 text-sm absolute">error</p>}
+      {error && <p className="text-red-500 text-sm absolute">{error}</p>}
     </div>
   );
 }
 
 export { Input, InputCustom };
+
+
+// Your <input /> is receiving value from {...props}, but you don’t guarantee that value is defined.
+// So if it’s ever undefined (which can happen when the form is first loading or if defaultValues don’t match the actual fields), React sees an uncontrolled input, and then later it gets a value ("", "abc", etc.) and becomes controlled, triggering the warning.
+
+// By setting value={value ?? ""}, you're ensuring:
+// If value is undefined, the input still has a valid string value ("")
+// React considers it controlled from the beginning
+// You won’t get the warning again

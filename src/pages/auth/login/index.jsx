@@ -2,14 +2,42 @@ import { useForm, Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { InputCustom } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import schema from "./schema-login";
+import { yupResolver } from "@hookform/resolvers/yup";
+import loginAPI from "@/apis/apiCalls/login";
+import { useMutation } from "@tanstack/react-query";
 
 export default function LoginPage() {
-  const { handleSubmit, control } = useForm({
+  // react hook form
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
     },
+    resolver: yupResolver(schema),
+    mode: "onChange",
   });
+
+  // tanstack query
+  const loginMutation = useMutation({
+    mutationFn: (data) => {
+      return loginAPI(data);
+    },
+  });
+
+  const onSubmit = function (formData) {
+    console.log(formData);
+    loginMutation.mutate(formData, {
+      onSuccess(){
+        console.log("tanstack login: success")
+      },
+      onError(){
+        console.log("tanstack login: error")
+      }
+    })
+
+    reset()
+  };
 
   return (
     <>
@@ -23,7 +51,7 @@ export default function LoginPage() {
               <p>Please enter your details</p>
             </div>
             <div className="login__form mx-10  md:w-8/12 md:mx-auto ">
-              <form action="">
+              <form action="" onSubmit={handleSubmit(onSubmit)}>
                 <div className="login__form__content space-y-7">
                   <div className="form__group">
                     <Label htmlFor="taiKhoan">Account</Label>
