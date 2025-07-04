@@ -1,33 +1,18 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "@/store/store";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const newQueryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-    },
-  },
-});
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import App from './App';
+import { store } from './store';
+import './styles/tailwind.css';
 
-createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
-      <QueryClientProvider client={newQueryClient}>
-        <StrictMode>
-          <App />
-        </StrictMode>
-      </QueryClientProvider>
-    </BrowserRouter>
-  </Provider>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.Fragment>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.Fragment>
 );
