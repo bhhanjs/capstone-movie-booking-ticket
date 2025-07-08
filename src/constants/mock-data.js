@@ -20,38 +20,6 @@ const MOVIE_LIST = {
   ],
 };
 
-const THEATER = {
-  title: "Theater",
-  name: "Pathé Amiens",
-  address: "80000 Amienes",
-};
-
-const DATE_SCREENING = {
-  title: "Date",
-  list: [
-    {
-      date: "Thurday 26 June",
-      screening: "5 screenings",
-    },
-    {
-      date: "Friday 27 June",
-      screening: "6 screenings",
-    },
-    {
-      date: "Saturday 28 June",
-      screening: "3 screenings",
-    },
-    {
-      date: "Sunday 29 June",
-      screening: "7 screenings",
-    },
-    {
-      date: "Monday 30 June",
-      screening: "2 screenings",
-    },
-  ],
-};
-
 const SCREENING = {
   title: "Screening",
   subtitle: "Tomorrow",
@@ -79,4 +47,4 @@ const SCREENING = {
   ],
 };
 
-export { MOVIE_LIST, THEATER, DATE_SCREENING,  SCREENING};
+export { MOVIE_LIST, SCREENING };

@@ -7,10 +7,10 @@ const schema = yup.object().shape({
   matKhau: yup
     .string()
     .required("Mật khẩu không được để trống")
-    .matches(
-      PASSWORD_REGEX,
-      "Password must contain at least 8 characters ( 1 uppercase, 1 special character)"
-    ),
+    // .matches(
+    //   PASSWORD_REGEX,
+    //   "Password must contain at least 8 characters ( 1 uppercase, 1 special character)"
+    // ),
 });
 
 export default schema;
