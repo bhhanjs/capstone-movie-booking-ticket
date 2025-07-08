@@ -37,7 +37,7 @@ export default function SeatsReserver({ selected = [1, 2] }) {
             <div className="flex justify-between items-center">
               <ul>
                 {selected.map((seat) => (
-                  <li className="text-sm text-gray-400">
+                  <li className="text-sm text-gray-400" key={seat}>
                     Fautueil standard :{" "}
                     <span className="text-yama-dark-gray text-[14px] font-semibold px-5">
                       {seat}

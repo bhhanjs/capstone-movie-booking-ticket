@@ -15,14 +15,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import registerAPI from "@/apis/apiCalls/register";
 import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+
   // React hook form + yup
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       taiKhoan: "",
@@ -60,18 +64,21 @@ export default function RegisterPage() {
     registerMutation.mutate(data, {
       onSuccess() {
         console.log("tanstack register: success");
+        toast.success("Register successful!");
+        navigate("/login");
+        reset();
       },
       onError() {
         console.log("tanstack register: error");
+        toast.error("Register failed. Please try again.");
       },
     });
-
-    reset();
   };
 
   // UI JSX
   return (
     <main>
+      <Toaster richColors position="top-right" />
       <div className="register__container section__container">
         <div className="register__content mx-auto w-10/12  md:w-8/12 py-16">
           {/* header */}
@@ -270,7 +277,8 @@ export default function RegisterPage() {
             <div className="register__button flex justify-center items-center ">
               <Button
                 type="submit"
-                className="bg-yama-main-green h-12 px-12 hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 ease-[cubic-bezier(1,.4,.5,1)] "
+                disabled={!isValid}
+                className="bg-yama-main-green h-12 px-12 hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 ease-[cubic-bezier(1,.4,.5,1)] cursor-pointer"
                 size="lg"
               >
                 Register
