@@ -3,9 +3,7 @@ import SlidePannel from "./slide-pannel";
 import AsidePannel from "./aside-pannel";
 import Seats from "./seats";
 
-
 export default function LargeScreenTicketRoom() {
-  
   const [slideContent, setSlideContent] = useState(null);
 
   const handleSlideContent = function (content) {

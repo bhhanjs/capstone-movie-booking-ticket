@@ -6,23 +6,10 @@ import schema from "./schema-login";
 import { yupResolver } from "@hookform/resolvers/yup";
 import loginAPI from "@/apis/apiCalls/login";
 import { useMutation } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/store/slices/user";
 
 export default function LoginPage() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   // react hook form
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { isValid, errors },
-  } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
@@ -31,36 +18,25 @@ export default function LoginPage() {
     mode: "onChange",
   });
 
-  console.log(isValid, errors);
-
   // tanstack query
   const loginMutation = useMutation({
     mutationFn: (data) => {
       return loginAPI(data);
     },
-    onSuccess: (response) => {
-      console.log("tanstack login: success");
-      toast.success("Login successful!");
-      console.log(response);
-
-      // store user data in the local storage
-      localStorage.setItem("user", JSON.stringify(response));
-      // store user data in the redux store
-      dispatch(setUser(response));
-
-      navigate("/");
-      reset();
-    },
-    onError: () => {
-      console.log("tanstack login: error");
-      toast.error("Login failed. Please try again.");
-    },
   });
 
   const onSubmit = function (formData) {
     console.log(formData);
+    loginMutation.mutate(formData, {
+      onSuccess(){
+        console.log("tanstack login: success")
+      },
+      onError(){
+        console.log("tanstack login: error")
+      }
+    })
 
-    loginMutation.mutate(formData);
+    reset()
   };
 
   return (
@@ -110,8 +86,7 @@ export default function LoginPage() {
                 <div className="flex justify-center items-center py-7 mt-12">
                   <Button
                     type="submit"
-                    disabled={!isValid}
-                    className="bg-yama-main-green h-12 px-12 hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 ease-[cubic-bezier(1,.4,.5,1)] cursor-pointer"
+                    className="bg-yama-main-green h-12 px-12 hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 ease-[cubic-bezier(1,.4,.5,1)]"
                   >
                     Login
                   </Button>

@@ -1,17 +1,17 @@
 import fetcher from "../fetcher";
 
-const ticketRoomAPI = async function (maLichChieu) {
+const ticketRoom = async function (data) {
   try {
     const ticketRoomData = await fetcher.get(
-      `/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`
+      `/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`,
+      data
     );
-    console.log(ticketRoomData);
-    console.log(ticketRoomData.data.content);
-    return ticketRoomData.data.content;
+    console.log(ticketRoomData)
+    return ticketRoomData.data
   } catch (error) {
-    console.log("ticketRoom error:", error);
-    throw error;
+    console.log("ticketRoom error:", error)
+    throw error
   }
 };
 
-export default ticketRoomAPI;
+export default ticketRoom;

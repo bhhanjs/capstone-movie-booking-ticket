@@ -9,7 +9,7 @@ import axios from "axios";
 const fetcher = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-   tokencybersoft: TOKEN_CYBERSOFT,
+    TokenCyberSolf: TOKEN_CYBERSOFT,
   },
 });
 
