@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { userInfo } from "os";
 
-const initialState = null;
+const initialState = {
+  userInfo: JSON.parse(localStorage.getItem("user")) || null,
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -8,17 +11,17 @@ const userSlice = createSlice({
   reducers: {
     // set user when user log in
     setUser: (state, action) => {
-      console.log(state, action);
-      return action.payload;
+      state.userInfo = action.payload;
+      localStorage.setItem("user", JSON.stringify(action.payload));
     },
 
     // clean user when user log out
-    cleanUser: (state) => {
-      console.log(state);
-      return null;
+    logOutUser: (state) => {
+      state.userInfo = null;
+      localStorage.removeItem("user");
     },
   },
 });
 
-export const { setUser, cleanUser } = userSlice.actions;
+export const { setUser, logOutUser } = userSlice.actions;
 export default userSlice.reducer;

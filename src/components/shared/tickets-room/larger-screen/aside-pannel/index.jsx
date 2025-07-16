@@ -6,6 +6,7 @@ import { Accessibility } from "lucide-react";
 import { MOVIE_LIST, SCREENING } from "@/constants/mock-data";
 import { useSelector } from "react-redux";
 import dateScreening from "@/components/shared/support-fn/date-screening";
+import { Link } from "react-router-dom";
 
 export default function AsidePannel({ onSlideContent }) {
   const { thongTinPhim } = useSelector((state) => state.ticketRoomSlice);
@@ -14,7 +15,7 @@ export default function AsidePannel({ onSlideContent }) {
     diaChi,
     gioChieu,
     hinhAnh,
-    maLichChieu,
+    // maLichChieu,
     ngayChieu,
     tenCumRap,
     tenPhim,
@@ -26,7 +27,6 @@ export default function AsidePannel({ onSlideContent }) {
     name: tenCumRap,
     address: diaChi,
   };
-
 
   const DATE_SCREENING = dateScreening(ngayChieu);
 
@@ -42,12 +42,12 @@ export default function AsidePannel({ onSlideContent }) {
         >
           <div className="movie__info__header relative space-y-7 py-8 px-6 border-b-1 border-gray-400">
             <div>
-              <a
-                href="#"
+              <Link
+                to="/"
                 className=" w-10 h-10 bg-gray-400/30 rounded-full flex justify-center items-center hover:bg-gray-400/50"
               >
                 <HomeIcon className="w-6 h-6 text-white" strokeWidth={2.5} />
-              </a>
+              </Link>
             </div>
             <div className="flex justify-center items-center ">
               <img

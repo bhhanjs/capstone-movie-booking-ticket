@@ -8,13 +8,24 @@ import loginAPI from "@/apis/apiCalls/login";
 import { useMutation } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/store/slices/user";
+import { useState, useEffect } from "react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (from !== "/" && !showRedirectMessage) {
+      toast.info("You must login first");
+      setShowRedirectMessage(true);
+    }
+  }, [from, showRedirectMessage]);
 
   // react hook form
   const {
@@ -43,13 +54,11 @@ export default function LoginPage() {
       toast.success("Login successful!");
       console.log(response);
 
-      // store user data in the local storage
-      localStorage.setItem("user", JSON.stringify(response));
       // store user data in the redux store
       dispatch(setUser(response));
 
-      navigate("/");
       reset();
+      navigate(from, { replace: true });
     },
     onError: () => {
       console.log("tanstack login: error");
@@ -66,6 +75,7 @@ export default function LoginPage() {
   return (
     <>
       <main>
+        <Toaster position="top-right" offset={120} />
         <div className="login__container section__container">
           <div className="login__content mx-auto w-10/12  md:w-8/12 py-16">
             <div className="login__header flex flex-col justify-center items-center space-y-6 text-center px-3 pt-9 pb-15 ">

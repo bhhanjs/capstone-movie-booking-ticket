@@ -7,6 +7,8 @@ import AuthLayout from "@/components/layouts/auth-layout";
 import LoginPage from "@/pages/auth/login";
 import RegisterPage from "@/pages/auth/register";
 import TicketPage from "@/pages/tickets";
+import ProtectedRoute from "./auth-security/protectedRoute";
+import InactiveAutoLogout from "./auth-security/inactive-auto-logout";
 
 const useRoutesElements = () => {
   const elements = useRoutes([
@@ -26,7 +28,13 @@ const useRoutesElements = () => {
     },
     {
       path: PATH.TICKETS_ROOM,
-      element: <TicketPage />,
+      element: (
+        <ProtectedRoute>
+          <InactiveAutoLogout>
+            <TicketPage />
+          </InactiveAutoLogout>
+        </ProtectedRoute>
+      ),
     },
     {
       // path: "",
