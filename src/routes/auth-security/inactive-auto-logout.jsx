@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOutUser } from "@/store/slices/user";
@@ -11,17 +11,23 @@ const InactiveAutoLogout = function ({ children }) {
   const logoutTime = 30 * 60 * 1000; // 30 mins
 
   // handle log out
-  const handleLogout = function () {
-    dispatch(logOutUser());
-    alert("You were logged out due to inactivity");
-    navigate(PATH.LOGIN);
-  };
+  const handleLogout = useCallback(
+    function () {
+      dispatch(logOutUser());
+      alert("You were logged out due to inactivity");
+      navigate(PATH.LOGIN);
+    },
+    [dispatch, navigate]
+  );
 
   // handle reset timer
-  const resetTimer = function () {
-    if (timerIdRef.current) clearTimeout(timerIdRef.current);
-    timerIdRef.current = setTimeout(handleLogout, logoutTime);
-  };
+  const resetTimer = useCallback(
+    function () {
+      if (timerIdRef.current) clearTimeout(timerIdRef.current);
+      timerIdRef.current = setTimeout(handleLogout, logoutTime);
+    },
+    [handleLogout, logoutTime]
+  );
 
   useEffect(() => {
     // start the timer on mount
@@ -36,7 +42,7 @@ const InactiveAutoLogout = function ({ children }) {
       if (timerIdRef.current) clearTimeout(timerIdRef.current);
       events.forEach((event) => window.removeEventListener(event, resetTimer));
     };
-  }, []);
+  }, [resetTimer]);
 
   // because it is a component jsx, so it need to return something
   return children;
