@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 export default function AuthFooter() {
   return (
@@ -8,18 +8,18 @@ export default function AuthFooter() {
           {/* footer top */}
           <div className="footer__top py-5 flex flex-col lg:flex-row justify-center items-center border-b-[1px] border-white w-full text-white text-sm space-y-2">
             <div className="footer__items">
-              <a href="#">Private Policy</a>
+              <Link to="#">Private Policy</Link>
             </div>
             <div className="footer__items">
-              <a href="#">
+              <Link to="#">
                 Description based on the Specified Commercial Transactions Act
-              </a>
+              </Link>
             </div>
             <div className="footer__items">
-              <a href="#">Staff Recruitment </a>
+              <Link to="#">Staff Recruitment </Link>
             </div>
             <div className="footer__items border-r-none">
-              <a href="#">List of cinemas</a>
+              <Link to="#">List of cinemas</Link>
             </div>
           </div>
           {/* footer under */}

@@ -82,5 +82,39 @@ c. layouts: for the layouts
 10. utils: functions tái sử dụng
 
 
+## Logics
+1. Register
++ To book the ticket => login => register
++ Get form data by React hook form 
++ Validation with yup - schema
++ Fetch API Post method by tanstack query
++ Handle data flow in onSuccess and onError
+
+2. Login
++ Get form data by React hook form
++ Validation with yup - schema
++ Fetch API Post method by tanstack query
++ API send back a response 
++ Login Success => data response will be the data of the user => handle in onSucess => store data in the redux store and local Storage => Go back to the home page or re-direct to the previous page which need the authenticate
++ Login Fail => data response will be an error => handle in onError => Display UI to user 
+
+
+3. Ticket Room
++ When user get into the ticket room => get user data in the redux store to check if user login yet
++ Create a component ProtectedRoute which wrap around the ticket room page
++ In the component: get the user data from redux store to check
+a. if not
+- Re-direct user to login 
+- Display a toast 
+- when the user login already, re-direct back to the previous authenticated page
+b. if yes
+- Fetch API to render the page
+c. Where to store the data:
++ userInfor & token: Redux + localStorage : for authen persistence
++ seat map data: Redux : for temporary show time
++ selected seats (before confirm): useState or Redux : local state for the simple or redux if need to use in somewhere else
++ final booking: send to API only : server will handle the actual booking
+
 ## Notes for team
 - font setup: Roboto
+

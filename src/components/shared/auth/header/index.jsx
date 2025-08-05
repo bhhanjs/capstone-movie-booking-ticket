@@ -12,6 +12,8 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { PATH } from "@/routes/paths";
 
 export default function AuthHeader() {
   return (
@@ -24,21 +26,21 @@ export default function AuthHeader() {
           <div className="w-full flex justify-between items-center ">
             {/* header left */}
             <div className="header__left w-7/12 flex justify-start items-center md:gap-4 lg:gap-7">
-              <a href="#" className="hidden md:inline-block img__hover">
+              <Link to="/" className="hidden md:inline-block img__hover">
                 <img
                   src={ImgForumCinema}
                   alt="forum cinema image"
                   className="w-17 h-17 img__hover"
                 />
-              </a>
+              </Link>
               <h1 className="w-42 md:min-w-9/12 lg:w-8/12">
-                <a href="#" className="img__hover">
+                <Link to="#" className="img__hover">
                   <img
                     src={ImgLogoName}
                     alt="logo name image"
                     className="w-full h-auto"
                   />
-                </a>
+                </Link>
               </h1>
             </div>
 
@@ -46,30 +48,30 @@ export default function AuthHeader() {
             <div className="header__right flex justify-center items-center gap-2 md:gap-2.5">
               {/* friends forum */}
               <div className="hidden lg:inline-block">
-                <a href="#" className="img__hover">
+                <Link to="/" className="img__hover">
                   <img
                     src={ImgForumFriend}
                     alt="Forum friend image"
                     className="w-14 h-8 rounded-[4px] md:w-23 md:h-13 py-1 px-2 border-2 border-yama-main-green md:rounded-none"
                   />
-                </a>
+                </Link>
               </div>
               {/* tickets room */}
               <div>
-                <a
-                  href="#"
+                <Link
+                  to="/"
                   className="w-14 h-8 rounded-[4px] md:rounded-none md:w-23 md:h-13 inline-block text-center leading-8 md:leading-13 text-xs font-bold md:text-[12px] bg-yama-light-gray text-white img__hover"
                 >
                   Tickets
-                </a>
+                </Link>
               </div>
               {/* account */}
               <div className="">
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <a
+                    <p
                       href="#"
-                      className="w-20 h-8 rounded-[4px] md:rounded-none md:w-35 md:h-13 leading-8 md:leading-13 text-[10px] md:text-[16px] font-light text-center border-yama-light-gray border-1 flex justify-center items-center gap-1 md:gap-2"
+                      className="w-20 h-8 rounded-[4px] md:rounded-none md:w-35 md:h-13 leading-8 md:leading-13 text-[10px] md:text-[16px] font-light text-center border-yama-light-gray border-1 flex justify-center items-center gap-1 md:gap-2 cursor-pointer"
                     >
                       Account
                       <img
@@ -77,7 +79,7 @@ export default function AuthHeader() {
                         alt="drop down icon"
                         className="w-3 h-3 md:w-4 md:h-4"
                       />
-                    </a>
+                    </p>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-10 md:w-md flex flex-col justify-center items-center gap-0.5 md:gap-2 py:2 px-3 md:py-5 md:px-6 rounded-none">
                     <DropdownMenuLabel className="text-sm md:text-xl text-yama-light-gray">
@@ -88,7 +90,9 @@ export default function AuthHeader() {
                         className="w-full md:h-12 md:rounded-none bg-yama-main-green img__hover hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 eas-[cubic-bezier(1,.4,.5,1)]"
                         size="sm"
                       >
-                        Login
+                        <Link to={PATH.LOGIN} className="w-full">
+                          Login
+                        </Link>
                       </Button>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="w-full">
@@ -96,7 +100,9 @@ export default function AuthHeader() {
                         className="w-full md:h-12 md:rounded-none bg-yama-light-gray hover:bg-yama-light-gray img__hover"
                         size="sm"
                       >
-                        Sign up
+                        <Link to={PATH.REGISTER} className="w-full">
+                          Sign up
+                        </Link>
                       </Button>
                     </DropdownMenuItem>
                   </DropdownMenuContent>

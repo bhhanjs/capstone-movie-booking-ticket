@@ -1,22 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { userInfo } from "os";
 
-const initialState = null;
+const initialState = {
+  userInfo: JSON.parse(localStorage.getItem("userLogin")) || null,
+};
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // set user when user log in
     setUser: (state, action) => {
-      console.log(state, action);
-      return action.payload;
+      state.userInfo = action.payload;
+      localStorage.setItem("userLogin", JSON.stringify(action.payload));
     },
 
-    cleanUser: (state) => {
-      console.log(state);
-      return null;
+    // clean user when user log out
+    logOutUser: (state) => {
+      state.userInfo = null;
+      localStorage.removeItem("userLogin");
     },
   },
 });
 
-export const { setUser, cleanUser } = userSlice.actions;
+export const { setUser, logOutUser } = userSlice.actions;
 export default userSlice.reducer;

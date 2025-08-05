@@ -6,10 +6,34 @@ import schema from "./schema-login";
 import { yupResolver } from "@hookform/resolvers/yup";
 import loginAPI from "@/apis/apiCalls/login";
 import { useMutation } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/store/slices/user";
+import { useState, useEffect } from "react";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [showRedirectMessage, setShowRedirectMessage] = useState(false);
+  const from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (from !== "/" && !showRedirectMessage) {
+      toast.info("You must login first");
+      setShowRedirectMessage(true);
+    }
+  }, [from, showRedirectMessage]);
+
   // react hook form
-  const { handleSubmit, control, reset } = useForm({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { isValid },
+  } = useForm({
     defaultValues: {
       taiKhoan: "",
       matKhau: "",
@@ -23,25 +47,33 @@ export default function LoginPage() {
     mutationFn: (data) => {
       return loginAPI(data);
     },
+    onSuccess: (response) => {
+      console.log("tanstack login: success");
+      toast.success("Login successful!");
+      console.log(response);
+
+      // store user data in the redux store
+      dispatch(setUser(response));
+
+      reset();
+      navigate(from, { replace: true });
+    },
+    onError: () => {
+      console.log("tanstack login: error");
+      toast.error("Login failed. Please try again.");
+    },
   });
 
   const onSubmit = function (formData) {
     console.log(formData);
-    loginMutation.mutate(formData, {
-      onSuccess(){
-        console.log("tanstack login: success")
-      },
-      onError(){
-        console.log("tanstack login: error")
-      }
-    })
 
-    reset()
+    loginMutation.mutate(formData);
   };
 
   return (
     <>
       <main>
+        <Toaster position="top-right" offset={120} />
         <div className="login__container section__container">
           <div className="login__content mx-auto w-10/12  md:w-8/12 py-16">
             <div className="login__header flex flex-col justify-center items-center space-y-6 text-center px-3 pt-9 pb-15 ">
@@ -86,7 +118,8 @@ export default function LoginPage() {
                 <div className="flex justify-center items-center py-7 mt-12">
                   <Button
                     type="submit"
-                    className="bg-yama-main-green h-12 px-12 hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 ease-[cubic-bezier(1,.4,.5,1)]"
+                    disabled={!isValid}
+                    className="bg-yama-main-green h-12 px-12 hover:bg-yama-main-green hover:opacity-70 transition-all duration-300 ease-[cubic-bezier(1,.4,.5,1)] cursor-pointer"
                   >
                     Login
                   </Button>
