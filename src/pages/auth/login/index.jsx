@@ -32,7 +32,7 @@ export default function LoginPage() {
     handleSubmit,
     control,
     reset,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm({
     defaultValues: {
       taiKhoan: "",
@@ -41,8 +41,6 @@ export default function LoginPage() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  console.log(isValid, errors);
 
   // tanstack query
   const loginMutation = useMutation({

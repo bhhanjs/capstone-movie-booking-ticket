@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // import { userInfo } from "os";
 
 const initialState = {
-  userInfo: JSON.parse(localStorage.getItem("user")) || null,
+  userInfo: JSON.parse(localStorage.getItem("userLogin")) || null,
 };
 
 const userSlice = createSlice({
@@ -12,13 +12,13 @@ const userSlice = createSlice({
     // set user when user log in
     setUser: (state, action) => {
       state.userInfo = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem("userLogin", JSON.stringify(action.payload));
     },
 
     // clean user when user log out
     logOutUser: (state) => {
       state.userInfo = null;
-      localStorage.removeItem("user");
+      localStorage.removeItem("userLogin");
     },
   },
 });
