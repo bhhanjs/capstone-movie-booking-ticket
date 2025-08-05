@@ -20,6 +20,7 @@ If you are developing a production application, we recommend using TypeScript wi
 - Store data: redux toolkit
 - Helper call API: tanstack query
 - Managing form: React hook form + yup
+- Link server: https://movienew.cybersoft.edu.vn/swagger/index.html
 
 ## UI preference
 - Admin page: https://templates.iqonic.design/streamit-dist/dashboard/html/movie/movie-list.html
