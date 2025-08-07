@@ -7,8 +7,6 @@ import {
   setSelectTheaterID,
 } from "@/store/slices/moviesSchedule";
 import { Skeleton } from "@/components/ui/skeleton";
-import replaceImg from "@/asset/media.jpeg";
-import dateScreening from "../../support-fn/date-screening";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { PATH } from "@/routes/paths";
