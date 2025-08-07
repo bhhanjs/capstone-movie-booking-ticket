@@ -40,14 +40,6 @@ export default function SeatsReserver() {
               {/* table */}
               <div className="w-7/12">
                 <Table>
-                  {/* <TableHeader>
-                    <TableRow>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Seats</TableHead>
-                      <TableHead>Price</TableHead>
-                    </TableRow>
-                  </TableHeader> */}
                   <TableBody>
                     {standard.length !== 0 && (
                       <TableRow>

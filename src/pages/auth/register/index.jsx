@@ -50,7 +50,7 @@ export default function RegisterPage() {
   });
 
   const onSubmit = function (formData) {
-    console.log(formData);
+    // console.log(formData);
     const data = {
       taiKhoan: formData.taiKhoan,
       matKhau: formData.matKhau,
@@ -60,10 +60,10 @@ export default function RegisterPage() {
       hoTen: formData.hoTen,
     };
 
-    console.log(data);
+    // console.log(data);
     registerMutation.mutate(data, {
       onSuccess() {
-        console.log("tanstack register: success");
+        // console.log("tanstack register: success");
         toast.success("Register successful!");
         navigate("/login");
         reset();

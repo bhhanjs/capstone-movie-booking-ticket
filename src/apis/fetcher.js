@@ -15,7 +15,7 @@ const fetcher = axios.create({
 
 // axio interceptors to intercept requuest before sending
 fetcher.interceptors.request.use((config) => {
-  console.log("config request object:", config);
+  // console.log("config request object:", config);
 
   // Adding the token from the localStorage if it exists
   let token = "";

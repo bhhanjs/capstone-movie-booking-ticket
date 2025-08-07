@@ -48,9 +48,9 @@ export default function LoginPage() {
       return loginAPI(data);
     },
     onSuccess: (response) => {
-      console.log("tanstack login: success");
+      // console.log("tanstack login: success");
       toast.success("Login successful!");
-      console.log(response);
+      // console.log(response);
 
       // store user data in the redux store
       dispatch(setUser(response));
@@ -65,7 +65,7 @@ export default function LoginPage() {
   });
 
   const onSubmit = function (formData) {
-    console.log(formData);
+    // console.log(formData);
 
     loginMutation.mutate(formData);
   };

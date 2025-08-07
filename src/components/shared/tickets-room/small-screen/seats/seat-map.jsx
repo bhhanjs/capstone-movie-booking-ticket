@@ -40,14 +40,6 @@ export default function SeatMap() {
         loaiGhe,
       } = seat;
 
-      // console.log("tenGhe:", tenGhe);
-      // console.log("maRap:", maRap);
-      // console.log("loaiGhe:", loaiGhe);
-      // console.log(" stt:", stt);
-      // console.log("  giaVe:", giaVe);
-      // console.log(" daDat:", daDat);
-      // console.log(" taiKhoanNguoiDat:", taiKhoanNguoiDat);
-
       const seatID = maGhe;
       const isSelected = selectedSeats.some((seat) => seat.maGhe === maGhe); // this will return boolean value
       // const isBooked = daDat;
@@ -66,13 +58,13 @@ export default function SeatMap() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
-                  className={`seat ${isSelected ? "selected" : ""} `}
+                  className={`seat-small ${isSelected ? "selected" : ""} `}
                   id={seatID}
                   onClick={() => {
                     handleSelectedSeat({ ...seat, seatIdRender });
                   }}
                 >
-                  {isSelected && <CheckIcon className="text-white w-5 h-5" />}
+                  {isSelected && <CheckIcon className="text-white w-4 h-4" />}
                 </div>
               </TooltipTrigger>
               <TooltipContent
@@ -101,12 +93,12 @@ export default function SeatMap() {
   };
 
   return (
-    <div className="px-7">
-      <div className="seat__map__container border-[1px] border-gray-300 rounded-md  pb-4">
-        <div className="seat__map__content w-7/12 mx-auto space-y-12 ">
+    <div className="px-4">
+      <div className="seat__map__container border-[1px] border-gray-300 rounded-md  pb-3">
+        <div className="seat__map__content w-7/12 mx-auto space-y-10 ">
           {/* screening */}
           <div className="screening w-full flex flex-col justify-center items-center">
-            <span className="translate-y-2/3 px-6 py-1 bg-yama-white text-lg text-[#DAA846] z-10">
+            <span className="translate-y-2/3 px-6  bg-yama-white text-lg text-[#DAA846] z-10">
               Screen
             </span>
             <img
@@ -131,10 +123,10 @@ export default function SeatMap() {
                       key={rowLetter}
                       className="row grid grid-cols-12 gap-5 "
                     >
-                      <div className="row__lable col-span-1 text-center font-bold">
+                      <div className="row__lable col-span-1 text-center font-bold text-sm">
                         {rowLetter}
                       </div>
-                      <div className="col-span-11 w-full flex items-center justify-center gap-15 ">
+                      <div className="col-span-11 w-full flex items-center justify-center gap-7 ">
                         <div className="w-5/12">
                           <div className="flex  w-full  items-center  justify-between gap-3">
                             {renderSeat(leftRow, rowLetter)}
@@ -150,7 +142,7 @@ export default function SeatMap() {
                     </div>
                     {(rowIdex + 1) % 5 === 0 &&
                       rowIdex !== rowGroupedSeats.length - 1 && (
-                        <div className="h-5"></div>
+                        <div className="h-3"></div>
                       )}
                   </Fragment>
                 );

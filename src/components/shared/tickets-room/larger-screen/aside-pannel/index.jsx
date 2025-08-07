@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 export default function AsidePannel({ onSlideContent }) {
   const { thongTinPhim } = useSelector((state) => state.ticketRoomSlice);
-  console.log("thongTinPhim from aside pannel", thongTinPhim);
+  // console.log("thongTinPhim from aside pannel", thongTinPhim);
   const {
     diaChi,
     gioChieu,
@@ -30,7 +30,7 @@ export default function AsidePannel({ onSlideContent }) {
 
   const DATE_SCREENING = dateScreening(ngayChieu);
 
-  console.log(DATE_SCREENING);
+  // console.log(DATE_SCREENING);
 
   return (
     <aside className="movie__info w-[320px] relative z-10 min-h-screen">
